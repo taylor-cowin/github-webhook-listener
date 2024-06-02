@@ -1,11 +1,16 @@
 {
-  "discord-openai-bot": {
-    "/event/discord-bot-push": {
-      "repo_name": "discord-openai-bot",
-      "local_dir": "/home/discord_bot/",
-      "remote_user": "taylor-cowin",
-      "remote_name": "origin",
-      "remote_branch": "master"
-    }
-  }
+  "repos": [
+      {
+          "repo_name": "discord-openai-bot",
+          "endpoints": [
+              {
+                  "endpoint": "/event/discord-bot-push",
+                  "local_dir": "/home/discord_bot/",
+                  "remote_user": "taylor-cowin",
+                  "remote_name": "origin",
+                  "remote_branch": "master"
+              }
+          ]
+      }
+  ]
 }
