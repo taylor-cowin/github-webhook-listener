@@ -7,6 +7,7 @@ import logging
 logger=None
 config_json={}
 settings_file="./settings.json"
+endpoints=[]
 
 def ensure_logger():
     global logger
@@ -26,7 +27,8 @@ def main():
             print(f"Couldn't load {settings_file}")
         finally:
             if config_json != {}:
-                print(config_json['repos'][0]['endpoints'][0]['local_dir'])
+                for repo in config_json['repos']:
+                    print(repo['endpoints'][0])
                           
 if __name__ == "__main__":
     main()            
