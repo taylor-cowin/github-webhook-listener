@@ -1,13 +1,16 @@
 import json
-from github import Github
 from wsgiref.simple_server import make_server
 import falcon
 import logging
+import subprocess
 
 #Global
 logger=None
 config_json={}
 settings_file="./settings.json"
+active_endpoints=[]
+endpoint_handler=None
+app = None
 
 def ensure_logger():
     global logger
@@ -15,6 +18,21 @@ def ensure_logger():
         logger = logging.getLogger(__name__)
         logging.basicConfig(filename='github-updater.log', level=logging.INFO,
                             format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+
+def git_command(endpoint):
+    #TODO DO THE GITHUB SHIT
+    github_url=str(f"https://github.com/{endpoint.remote_user}/{endpoint.repo_name} {endpoint.remote_name} {endpoint.remote_branch}")                      
+    working_dir=str(f"{endpoint.local_dir}{endpoint.repo_name}")
+    result = subprocess.run(str(f"cd {working_dir} && git fetch && git pull {github_url}"), capture_output = True, text = True)
+    print(f"Result: {result.stdout}")
+    print(f"Error: {result.stderr}")
+class EndpointHandler:
+    def on_get(self, req, resp):
+        resp.status = falcon.HTTP_200
+        for endpoint in active_endpoints:
+            if req.path == endpoint.endpoint:
+                git_command(endpoint)
+
 class EndpointClass:
     def __init__(self, endpoint, repo_name, local_dir, remote_user, remote_name, remote_branch):
         self.endpoint = endpoint
@@ -24,13 +42,14 @@ class EndpointClass:
         self.remote_name = remote_name
         self.remote_branch = remote_branch
 
-class ListenerClass:
-    #TODO EXTENDS SOMETHING??
-    
 def create_listeners(endpoints_list):
-     for endpoint in endpoints_list:
-              #TODO SEE FALCON DOCS
-        
+    for endpoint in endpoints_list:
+        try:
+            app.add_route(endpoint.endpoint, endpoint_handler)
+            global active_endpoints
+            active_endpoints.append(endpoint)
+        except Exception as e:
+            print(f"Could not add endpoint: {endpoint}. {e}")
 def main():
     
     def warn_settings():
@@ -38,6 +57,13 @@ def main():
     
     #START
     ensure_logger()
+
+    global endpoint_handler
+    endpoint_handler = EndpointHandler()
+
+    global app
+    app = falcon.App()
+    
     with open(settings_file, "r") as _f:
         try:
             global config_json
@@ -57,6 +83,10 @@ def main():
                 create_listeners(endpoints)
             else:
                 warn_settings()
+
+    with make_server('', 8000, app) as httpd:
+        print('Serving on port 8000...')
+        httpd.serve_forever()            
 
 if __name__ == "__main__":
     main()            
