@@ -75,7 +75,7 @@ def main():
             if config_json != {}:
                 endpoints=[]
                 for endpoint in config_json['endpoints']:
-                    logger.info(f"Starting endpoint: {endpoint["endpoint"]}")
+                    #logger.info(f"Starting endpoint: {endpoint["endpoint"]}")
                     logger.debug(f"Starting endpoint: {endpoint}")
                     new_endpoint = EndpointClass(endpoint["endpoint"], endpoint["repo_name"], endpoint["local_dir"], endpoint["remote_user"], endpoint["remote_name"], endpoint["remote_branch"])
                     endpoints.append(new_endpoint)
