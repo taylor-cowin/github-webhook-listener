@@ -19,12 +19,20 @@ def ensure_logger():
         logging.basicConfig(filename='github-updater.log', level=logging.INFO,
                             format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 
+def restart_service(service_name):
+    result = subprocess.run(str(f"sudo systemctl restart {service_name}.service"), capture_output = True, text = True, shell=True)
+    print(f"Result: {result.stdout}")
+    print(f"Error: {result.stderr}")
+
 def git_command(endpoint):
     github_url=str(f"https://github.com/{endpoint.remote_user}/{endpoint.repo_name} {endpoint.remote_name} {endpoint.remote_branch}")                      
     working_dir=str(f"{endpoint.local_dir}{endpoint.repo_name}")
     result = subprocess.run(str(f"cd {working_dir} && git fetch && git pull"), capture_output = True, text = True, shell=True)
     print(f"Result: {result.stdout}")
     print(f"Error: {result.stderr}")
+
+    restart_service(endpoint.service_name)
+    
 class EndpointHandler:
     def on_post(self, req, resp):
         resp.status = falcon.HTTP_200
@@ -33,13 +41,14 @@ class EndpointHandler:
                 git_command(endpoint)
 
 class EndpointClass:
-    def __init__(self, endpoint, repo_name, local_dir, remote_user, remote_name, remote_branch):
+    def __init__(self, endpoint, repo_name, local_dir, remote_user, remote_name, remote_branch, service_name):
         self.endpoint = endpoint
         self.repo_name = repo_name
         self.local_dir = local_dir
         self.remote_user = remote_user
         self.remote_name = remote_name
         self.remote_branch = remote_branch
+        self.service_name = service_name
 
 def create_listeners(endpoints_list):
     for endpoint in endpoints_list:
