@@ -2,8 +2,8 @@ This python app listens on port 8000 (unless otherwise specified) for POST reque
 
 Partial roadmap:
 
->Better logging!!!
->Adding port, interface, and other options to the settings file
->Example settings values (and maybe stop using json for handling the settings?)
->Make service handling optional instead of mandatory
->Handling of private repos (might currently work with ssh-add but is untested)
+*Better logging!!!
+*Adding port, interface, and other options to the settings file
+*Example settings values (and maybe stop using json for handling the settings?)
+*Make service handling optional instead of mandatory
+*Handling of private repos (might currently work with ssh-add but is untested)
