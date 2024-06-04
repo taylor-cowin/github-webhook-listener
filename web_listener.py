@@ -85,7 +85,7 @@ def main():
                 for endpoint in config_json['endpoints']:
                     #logger.info(f"Starting endpoint: {endpoint["endpoint"]}")
                     logger.debug(f"Starting endpoint: {endpoint}")
-                    new_endpoint = EndpointClass(endpoint["endpoint"], endpoint["repo_name"], endpoint["local_dir"], endpoint["remote_user"], endpoint["remote_name"], endpoint["remote_branch"])
+                    new_endpoint = EndpointClass(endpoint["endpoint"], endpoint["repo_name"], endpoint["local_dir"], endpoint["remote_user"], endpoint["remote_name"], endpoint["remote_branch"], endpoint["service_name"])
                     endpoints.append(new_endpoint)
             if endpoints != []:
                 create_listeners(endpoints)
