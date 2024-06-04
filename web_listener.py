@@ -20,14 +20,13 @@ def ensure_logger():
                             format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 
 def git_command(endpoint):
-    #TODO DO THE GITHUB SHIT
     github_url=str(f"https://github.com/{endpoint.remote_user}/{endpoint.repo_name} {endpoint.remote_name} {endpoint.remote_branch}")                      
     working_dir=str(f"{endpoint.local_dir}{endpoint.repo_name}")
     result = subprocess.run(str(f"cd {working_dir} && git fetch && git pull"), capture_output = True, text = True, shell=True)
     print(f"Result: {result.stdout}")
     print(f"Error: {result.stderr}")
 class EndpointHandler:
-    def on_get(self, req, resp):
+    def on_post(self, req, resp):
         resp.status = falcon.HTTP_200
         for endpoint in active_endpoints:
             if req.path == endpoint.endpoint:
