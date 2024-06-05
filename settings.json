@@ -8,6 +8,15 @@
             "remote_name": "origin",
             "remote_branch": "main",
             "service_name": "discord"
+        },
+        {
+            "endpoint": "/event/discord-bot-push-dev",
+            "repo_name": "discord-openai-bot",
+            "local_dir": "/home/discord_bot/dev",
+            "remote_user": "taylor-cowin",
+            "remote_name": "origin",
+            "remote_branch": "dev",
+            "service_name": "discord_dev"
         }
     ]
 }
