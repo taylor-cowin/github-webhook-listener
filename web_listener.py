@@ -36,6 +36,7 @@ def git_command(endpoint):
 class EndpointHandler:
     def on_post(self, req, resp):
         resp.status = falcon.HTTP_200
+        print(req.path)
         for endpoint in active_endpoints:
             if req.path == endpoint.endpoint:
                 git_command(endpoint)
