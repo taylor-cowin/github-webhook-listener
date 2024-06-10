@@ -16,7 +16,7 @@ def ensure_logger():
     global logger
     if logger is None:
         logger = logging.getLogger(__name__)
-        logging.basicConfig(filename='github-updater.log', level=logging.INFO,
+        logging.basicConfig(filename='github-updater.log', level=logging.DEBUG,
                             format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 
 def restart_service(service_name):
@@ -35,8 +35,9 @@ def git_command(endpoint):
     
 class EndpointHandler:
     def on_post(self, req, resp):
+        ensure_logger()
         resp.status = falcon.HTTP_200
-        print(req.path)
+        logger.debug(str(req))
         for endpoint in active_endpoints:
             if req.path == endpoint.endpoint:
                 git_command(endpoint)
