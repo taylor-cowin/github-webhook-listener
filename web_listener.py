@@ -33,7 +33,7 @@ def git_command(endpoint):
     logger.debug(f"Git Command - Error: {result.stderr}")
 
     restart_service(endpoint.service_name)
-
+####
 
 class EndpointHandler:
     def get_branch(self, ref):
