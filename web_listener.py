@@ -40,7 +40,7 @@ class EndpointHandler:
     def on_post(self, req, resp):
         ensure_logger()
         resp.status = falcon.HTTP_200
-        logger.debug(str(json.dumps(req.media)))
+        logger.debug(str(json.dumps(req.media["ref"])))
         for endpoint in active_endpoints:
             if req.path == endpoint.endpoint:
                 git_command(endpoint)
