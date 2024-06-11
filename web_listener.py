@@ -28,6 +28,8 @@ def restart_service(service_name):
 def git_command(endpoint):
     github_url=str(f"https://github.com/{endpoint.remote_user}/{endpoint.repo_name} {endpoint.remote_name} {endpoint.remote_branch}")                      
     working_dir=str(f"{endpoint.local_dir}/{endpoint.repo_name}")
+    logger.debug(f"Github URL: {github_url}")
+    logger.debug(f"Working Dir: {working_dir}")
     result = subprocess.run(str(f"cd {working_dir} && git fetch && git pull {github_url}"), capture_output = True, text = True, shell=True)
     logger.debug(f"Git {endpoint} - Result: {result.stdout}")
     logger.debug(f"Git {endpoint} - Error: {result.stderr}")
