@@ -37,20 +37,19 @@ def git_command(endpoint):
     restart_service(endpoint.service_name)
 
 class EndpointHandler:
-    
     def get_branch(self, ref):
         ensure_logger()
         logger.debug(f"Ref: {ref}")
         #branch = re.search("(?<=/refs/heads/).*", ref)
         branch = ref.split("/")[-1]
-        logger.debug(f"Branch: {branch}")
+        logger.debug(f"Branch1: {branch}")
         return branch
 
     def on_post(self, req, resp):
         ensure_logger()
         resp.status = falcon.HTTP_200
         branch = self.get_branch(json.dumps(req.media["ref"]))
-        logger.debug(f"Branch: {branch}")
+        logger.debug(f"Branch2: {branch}")
         for endpoint in active_endpoints:
             if req.path == endpoint.endpoint:
                 if branch == endpoint.remote_branch:
