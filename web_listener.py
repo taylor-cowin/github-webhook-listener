@@ -3,6 +3,7 @@ from wsgiref.simple_server import make_server
 import falcon
 import logging
 import subprocess
+import re 
 
 #Global
 logger=None
@@ -37,10 +38,14 @@ def git_command(endpoint):
     
     ################TODO WHERE THE FUCK DO I GET THE BRANCH IN THE GITHUB POST?!?!
 class EndpointHandler:
+    def get_branch(self, ref):
+        return re.split("/refs/heads/", ref)[1]
+
     def on_post(self, req, resp):
         ensure_logger()
         resp.status = falcon.HTTP_200
-        logger.debug(str(json.dumps(req.media["ref"])))
+        branch = self.get_branch(str(json.dumps(req.media["ref"])))
+        logger.debug(f"Branch: {branch}")
         for endpoint in active_endpoints:
             if req.path == endpoint.endpoint:
                 git_command(endpoint)
