@@ -38,6 +38,7 @@ def git_command(endpoint):
 
 class EndpointHandler:
     
+    
     def get_branch(self, ref):
         ensure_logger()
         logger.debug(f"Ref: {ref}")
