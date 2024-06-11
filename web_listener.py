@@ -57,6 +57,7 @@ class EndpointHandler:
                 if branch == endpoint.remote_branch:
                     git_command(endpoint)
 
+
 class EndpointClass:
     def __init__(self, endpoint, repo_name, local_dir, remote_user, remote_name, remote_branch, service_name):
         self.endpoint = endpoint
