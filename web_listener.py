@@ -39,7 +39,10 @@ def git_command(endpoint):
     ################TODO WHERE THE FUCK DO I GET THE BRANCH IN THE GITHUB POST?!?!
 class EndpointHandler:
     def get_branch(self, ref):
-        return re.split("/refs/heads/", ref)[1]
+        ensure_logger()
+        branch = re.split("/refs/heads/", ref)[1]
+        logger.debug(branch)
+        return branch
 
     def on_post(self, req, resp):
         ensure_logger()
