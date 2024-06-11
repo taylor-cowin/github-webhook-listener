@@ -41,13 +41,12 @@ class EndpointHandler:
     def get_branch(self, ref):
         ensure_logger()
         branch = re.match("(?<=/refs/heads/).*", ref)
-        logger.debug(f"Branch: {branch}")
         return branch
 
     def on_post(self, req, resp):
         ensure_logger()
         resp.status = falcon.HTTP_200
-        branch = self.get_branch(str(json.dumps(req.media["ref"])))
+        branch = self.get_branch(json.dumps(req.media["ref"]))
         logger.debug(f"Branch: {branch}")
         for endpoint in active_endpoints:
             if req.path == endpoint.endpoint:
