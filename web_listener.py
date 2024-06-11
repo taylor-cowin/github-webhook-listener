@@ -40,7 +40,8 @@ def git_command(endpoint):
 class EndpointHandler:
     def get_branch(self, ref):
         ensure_logger()
-        branch = re.match("(?<=/refs/heads/).*", ref)
+        logger.debug(f"Ref: {ref}")
+        branch = re.search("(?<=/refs/heads/).*", ref)
         return branch
 
     def on_post(self, req, resp):
