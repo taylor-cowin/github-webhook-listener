@@ -51,7 +51,7 @@ class EndpointHandler:
         ensure_logger()
         resp.status = falcon.HTTP_200
         branch = self.get_branch(json.dumps(req.media["ref"]))
-        logger.debug(f"Branch2: {branch}")
+        logger.debug(f"Branch: {branch}")
         for endpoint in active_endpoints:
             if req.path == endpoint.endpoint:
                 if branch == endpoint.remote_branch:
