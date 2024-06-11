@@ -33,6 +33,9 @@ def git_command(endpoint):
 
     restart_service(endpoint.service_name)
     
+    
+    
+    ################TODO WHERE THE FUCK DO I GET THE BRANCH IN THE GITHUB POST?!?!
 class EndpointHandler:
     def on_post(self, req, resp):
         ensure_logger()
