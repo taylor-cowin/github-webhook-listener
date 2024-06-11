@@ -33,7 +33,6 @@ def git_command(endpoint):
     logger.debug(f"Git Command - Error: {result.stderr}")
 
     restart_service(endpoint.service_name)
-####
 
 class EndpointHandler:
     def get_branch(self, ref):
@@ -49,7 +48,8 @@ class EndpointHandler:
         logger.debug(f"Branch: {branch}")
         for endpoint in active_endpoints:
             if req.path == endpoint.endpoint:
-                git_command(endpoint)
+                if branch == endpoint.remote_branch:
+                    git_command(endpoint)
 
 class EndpointClass:
     def __init__(self, endpoint, repo_name, local_dir, remote_user, remote_name, remote_branch, service_name):
