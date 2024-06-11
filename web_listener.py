@@ -37,6 +37,7 @@ def git_command(endpoint):
     restart_service(endpoint.service_name)
 
 class EndpointHandler:
+    
     def get_branch(self, ref):
         ensure_logger()
         logger.debug(f"Ref: {ref}")
