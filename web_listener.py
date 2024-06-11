@@ -33,10 +33,7 @@ def git_command(endpoint):
     logger.debug(f"Git Command - Error: {result.stderr}")
 
     restart_service(endpoint.service_name)
-    
-    
-    
-    ################TODO WHERE THE FUCK DO I GET THE BRANCH IN THE GITHUB POST?!?!
+
 class EndpointHandler:
     def get_branch(self, ref):
         ensure_logger()
