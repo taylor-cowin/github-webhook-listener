@@ -42,7 +42,7 @@ class EndpointHandler:
         ensure_logger()
         logger.debug(f"Ref: {ref}")
         #branch = re.search("(?<=/refs/heads/).*", ref)
-        branch = ref.rsplit('/', 1)[-1]
+        branch = ref.split("/")[-1]
         return branch
 
     def on_post(self, req, resp):
