@@ -21,15 +21,15 @@ def ensure_logger():
 
 def restart_service(service_name):
     result = subprocess.run(str(f"sudo systemctl restart {service_name}.service"), capture_output = True, text = True, shell=True)
-    print(f"Result: {result.stdout}")
-    print(f"Error: {result.stderr}")
+    logger.debug(f"Restart Server - Result: {result.stdout}")
+    logger.debug(f"Restart Server - Error: {result.stderr}")
 
 def git_command(endpoint):
     github_url=str(f"https://github.com/{endpoint.remote_user}/{endpoint.repo_name} {endpoint.remote_name} {endpoint.remote_branch}")                      
     working_dir=str(f"{endpoint.local_dir}{endpoint.repo_name}")
     result = subprocess.run(str(f"cd {working_dir} && git fetch && git pull {github_url}"), capture_output = True, text = True, shell=True)
-    print(f"Result: {result.stdout}")
-    print(f"Error: {result.stderr}")
+    logger.debug(f"Git Command - Result: {result.stdout}")
+    logger.debug(f"Git Command - Error: {result.stderr}")
 
     restart_service(endpoint.service_name)
     
