@@ -45,6 +45,7 @@ class EndpointHandler:
         branch = ref.rsplit('/', 1)[-1]
         return branch
 
+
     def on_post(self, req, resp):
         ensure_logger()
         resp.status = falcon.HTTP_200
