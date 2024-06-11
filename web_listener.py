@@ -27,7 +27,7 @@ def restart_service(service_name):
 
 def git_command(endpoint):
     github_url=str(f"https://github.com/{endpoint.remote_user}/{endpoint.repo_name} {endpoint.remote_name} {endpoint.remote_branch}")                      
-    working_dir=str(f"{endpoint.local_dir}{endpoint.repo_name}")
+    working_dir=str(f"{endpoint.local_dir}/{endpoint.repo_name}")
     result = subprocess.run(str(f"cd {working_dir} && git fetch && git pull {github_url}"), capture_output = True, text = True, shell=True)
     logger.debug(f"Git {endpoint} - Result: {result.stdout}")
     logger.debug(f"Git {endpoint} - Error: {result.stderr}")
@@ -94,7 +94,6 @@ def main():
             if config_json != {}:
                 endpoints=[]
                 for endpoint in config_json['endpoints']:
-                    #logger.info(f"Starting endpoint: {endpoint["endpoint"]}")
                     logger.debug(f"Starting endpoint: {endpoint}")
                     new_endpoint = EndpointClass(endpoint["endpoint"], endpoint["repo_name"], endpoint["local_dir"], endpoint["remote_user"], endpoint["remote_name"], endpoint["remote_branch"], endpoint["service_name"])
                     endpoints.append(new_endpoint)
