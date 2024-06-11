@@ -21,7 +21,7 @@
         {
             "endpoint": "/event/github-sync-push",
             "repo_name": "github-webhook-listener",
-            "local_dir": "/home/discord_bot/dev",
+            "local_dir": "/home/discord_bot",
             "remote_user": "taylor-cowin",
             "remote_name": "origin",
             "remote_branch": "main",
