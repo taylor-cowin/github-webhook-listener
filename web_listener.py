@@ -37,10 +37,12 @@ def git_command(endpoint):
     restart_service(endpoint.service_name)
 
 class EndpointHandler:
+    
     def get_branch(self, ref):
         ensure_logger()
         logger.debug(f"Ref: {ref}")
-        branch = re.search("(?<=/refs/heads/).*", ref)
+        #branch = re.search("(?<=/refs/heads/).*", ref)
+        branch = ref.rsplit('/', 1)[-1]
         return branch
 
     def on_post(self, req, resp):
