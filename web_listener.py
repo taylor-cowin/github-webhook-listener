@@ -41,8 +41,10 @@ class EndpointHandler:
     def get_branch(self, ref):
         ensure_logger()
         logger.debug(f"Ref: {ref}")
-        #branch = re.search("(?<=/refs/heads/).*", ref)
+        #Get last dir of URL
         branch = ref.split("/")[-1]
+        #Remove the trailing quotation mark
+        branch = branch[:-1]
         return branch
 
     def on_post(self, req, resp):
