@@ -12,8 +12,6 @@ active_endpoints=[]
 endpoint_handler=None
 app = None
 
-##TEST##
-
 def ensure_logger():
     global logger
     if logger is None:
