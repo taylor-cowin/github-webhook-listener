@@ -12,6 +12,8 @@ active_endpoints=[]
 endpoint_handler=None
 app = None
 
+##
+
 def ensure_logger():
     global logger
     if logger is None:
@@ -35,8 +37,6 @@ def git_command(endpoint):
 
     restart_service(endpoint.service_name)
 
-
-###
 class EndpointHandler:
     
     def get_branch(self, ref):
