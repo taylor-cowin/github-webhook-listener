@@ -75,7 +75,7 @@ def create_listeners(endpoints_list):
         except Exception as e:
             print(f"Could not add endpoint: {endpoint}. {e}")
 def main():
-    
+    #TEST
     def warn_settings():
         logger.warning(f"Could not find usable settings. Check {settings_file} for proper json syntax. See github for structure.")            
     
